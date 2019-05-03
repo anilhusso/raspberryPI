@@ -1,0 +1,63 @@
+from sense_hat import SenseHat
+from time import sleep
+from random import randint
+
+sense = SenseHat()
+
+blue = (0, 0, 255)
+yellow = (255, 255, 0)
+
+
+
+red = (255, 0, 0)
+blue = (0, 0, 255)
+green = (0, 255, 0)
+white = (255, 255, 255)
+yellow = (255, 255, 0)
+
+# Generate a random colour
+def pick_random_colour():
+  random_red = randint(0, 255)
+  random_green = randint(0, 255)
+  random_blue = randint(0, 255)
+  return (random_red, random_green, random_blue)
+
+sense.show_letter("A", pick_random_colour())
+sleep(1)
+sense.show_letter("N", pick_random_colour())
+sleep(1)
+sense.show_letter("I", pick_random_colour())
+sleep(1)
+sense.show_letter("L", pick_random_colour())
+sleep(1)
+
+sense.clear()
+
+# Define the colours red and green
+red = (255, 0, 0)
+green = (0, 255, 0)
+
+while True:
+
+  # Take readings from all three sensors
+  t = sense.get_temperature()
+  p = sense.get_pressure()
+  h = sense.get_humidity()
+
+  # Round the values to one decimal place
+  t = round(t, 1)
+  p = round(p, 1)
+  h = round(h, 1)
+  
+  # Create the message
+  # str() converts the value to a string so it can be concatenated
+  message = "Anil" + str(t) + " Anil" + str(p) + " Anil" + str(h)
+  
+  if t > 18.3 and t < 26.7:
+    bg = green
+  else:
+    bg = red
+  
+  # Display the scrolling message
+  sense.show_message(message, scroll_speed=0.05, back_colour=bg)
+
